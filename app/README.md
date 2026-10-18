@@ -5,7 +5,7 @@ This isolated prototype reuses your Cabinex Master cabinet and SketchUp adapter 
 On this computer the updated development folder is already available. In SketchUp's Ruby Console:
 
 ```ruby
-load 'C:/Users/asank/.codex/.chatgpt-projects/g-p-680bd904c9948191a5f212831ea92089/LuxKTC/app/aj_board_kitchen.rb'
+load 'C:/Users/asank/Documents/LuxKTC/app/aj_board_kitchen.rb'
 ```
 
 The loader creates the kitchen and sheet layout, then opens a compact toolbar and settings panel. Building again replaces only the root group marked as this AJ test. Existing geometry remains outside that group. Exit component/group edit mode first. Undo can reverse the build.
