@@ -1,0 +1,8 @@
+AutoCAD 2000 DXFs. SketchUp: File > Import > AutoCAD Files. Options: Millimeters.
+The calibration square is 100 x 100 mm with a 20 mm diameter circle.
+All part/sheet samples 02 through 06 include VISIBLE LINE LABELS on NONCUT_LABEL_* layers.
+01 is calibration. Optional real CAD TEXT files are in app/example_export/cad_dxf.
+All labelled panels/sheets: app/example_export/parts_dxf and sheets_dxf.
+NONCUT_LABEL_* is review lettering, never a machining toolpath.
+
+ASPIRE: Set job to millimetres. Import 07_ASPIRE_100mm_LAYER_TEST.dxf first: verify the square is 100 x 100 mm and drill/pocket/groove/cut are separate layers. Samples 08/09 are real part/nest files. All Aspire R12 exports: app/example_export/aspire_dxf/parts and sheets. Exclude NONCUT layers from machining.

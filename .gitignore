@@ -1,0 +1,14 @@
+# Generated kitchen jobs and DXF import samples are rebuilt from the source.
+/app/example_export/*
+!/app/example_export/job.json
+!/app/example_export/nesting.json
+/app/test_output/
+/app/live_test/
+/app/test/pdf_previews/
+/app/test/*.json
+/DXF_Import_Test/*.dxf
+/deliverables/
+/app/last_error.txt
+__pycache__/
+*.pyc
+*.skp~
