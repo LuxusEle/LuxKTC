@@ -12,4 +12,13 @@
 __pycache__/
 *.pyc
 *.skp~
+*.skp
+*.skb
+*.log
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
 /resources/
