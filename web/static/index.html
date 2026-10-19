@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173d32">
+  <meta name="description" content="LuxKTC measured kitchen projects, shared with SketchUp.">
+  <title>LuxKTC · Kitchen studio</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <div class="studio">
+    <aside class="sidebar" aria-label="Project navigation">
+      <a class="brand" href="/" aria-label="LuxKTC home"><span class="brand-mark">L<span>K</span></span><span>LuxKTC<small>THE KITCHEN STUDIO</small></span></a>
+      <div class="sidebar-heading"><span>YOUR PROJECTS</span><button class="icon-button" id="new-project" title="New project" aria-label="New project">+</button></div>
+      <div id="project-list" class="project-list"><p class="muted">Connecting to your studio…</p></div>
+      <div class="sidebar-bottom"><span class="service-dot" id="service-dot"></span><span id="service-status">Connecting</span><button class="text-button" id="refresh-projects" title="Refresh project list">Refresh</button></div>
+    </aside>
+    <main id="main" class="main" aria-live="polite"></main>
+  </div>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <dialog id="modal"><form method="dialog" id="modal-form"></form></dialog>
+</body>
+</html>

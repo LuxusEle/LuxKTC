@@ -3,7 +3,7 @@ require_relative 'export' unless defined?(AJBoardKitchen::Export)
 
 module AJBoardKitchen
   remove_const(:CATEGORIES) if const_defined?(:CATEGORIES, false)
-  CATEGORIES=%w[Carcass Backs Stretchers Doors].concat(['Drawer faces','Drawer boxes','Connectors','Hinges','Runners','Gola','Finger pulls','Upper covers','Edgebands','Machining','Part numbers','Nesting','Appliances','Plinth','Worktop']).freeze
+  CATEGORIES=%w[Carcass Backs Stretchers Doors].concat(['Drawer faces','Drawer boxes','Connectors','Hinges','Runners','Gola','Finger pulls','Upper covers','Edgebands','Machining','Part numbers','Nesting','Appliances','Plinth','Worktop','Room walls','Room measurements','Cabinet measurements']).freeze
   class View < S::Adapter
     attr_reader :root,:job,:statistics,:nest_root
     def geometry_key(p)
@@ -135,7 +135,7 @@ module AJBoardKitchen
     def build_test!
       started=false
       raise 'Exit the current component edit before building the test.' unless @model.active_path.nil?
-      old=@model.entities.grep(Sketchup::Group).select { |g| g.get_attribute(DICT,'owned') }
+      old=@model.entities.grep(Sketchup::Group).select { |g| g.get_attribute(DICT,'owned') && !g.get_attribute('LuxKTC','project_id') }
       others=@model.entities.to_a.reject { |e| old.include?(e) }
       maxx=others.select { |e| e.respond_to?(:bounds) && !e.bounds.empty? }.map { |e| e.bounds.max.x.to_f*25.4 }.max
       offset=old.empty? ? (maxx ? maxx+1000 : 0) : old.first.transformation.origin.x.to_f*25.4
@@ -224,6 +224,7 @@ module AJBoardKitchen
     UI.messagebox("AJ board test: #{e.message}");warn e.full_message
   end
   def build!(input=nil,preserve_camera:false)
+    raise 'A shared LuxKTC project is active. Use Edit selected project cabinet or the web interface, then Push SketchUp edits.' if defined?(Sync) && Sync.active?
     conf=input || @config || DEFAULTS
     camera=Sketchup.active_model.active_view.camera if preserve_camera
     visibility=@view ? CATEGORIES.to_h { |cat| [cat,@view.tag(cat).visible?] } : {}
@@ -313,6 +314,13 @@ module AJBoardKitchen
     end
   end
   def boot
-    install_toolbar;build!;show_dialog
+    install_toolbar
+    Sync.install if defined?(Sync)
+    if defined?(Sync) && Sync.rehydrate
+      update_status('Shared LuxKTC project restored. Pull web changes or push local parametric edits using the LuxKTC toolbar.')
+    else
+      update_status('LuxKTC ready. Pull a shared project, or explicitly build the 10 foot test from the AJ Board Kitchen menu.')
+    end
+    Studio.show if defined?(Studio)
   end
 end

@@ -31,7 +31,11 @@ module AJBoardKitchen
       raw=e.get_attribute(S::DICT,'cabinet')||e.get_attribute(S::DICT,'part')
       next unless raw
       data=JSON.parse(raw);id=data['cabinet_id']||data['id']
-      return id if id && id.match?(/\A[BW]\d\d\z/)
+      if defined?(Sync) && Sync.active?
+        uuid=data['cabinet_uuid']||data['uuid']
+        next unless Sync.project[:design][:cabinets].any? { |cab| cab[:id]==uuid }
+      end
+      return id if id && id.match?(/\A[BW]\d{2,4}\z/)
     end
     nil
   end
@@ -41,9 +45,11 @@ module AJBoardKitchen
     id ? edit_cabinet(id) : Sketchup.active_model.select_tool(CabinetPickTool.new)
   end
   def edit_cabinet(id)
+    return Sync.edit(id) if defined?(Sync) && Sync.active?
     active!;@editing_id=id;show_dialog;sync_dialog
   end
   def preview_cabinet_edit(payload)
+    raise 'Use Edit selected project cabinet for shared LuxKTC projects.' if defined?(Sync) && Sync.active?
     active!;@pending_edit=nil
     input=payload.transform_keys(&:to_sym);id=input.fetch(:id)
     config=Layout.edit(@config,id,input.fetch(:changes),fill:input.fetch(:fill,'both'))
@@ -72,6 +78,7 @@ module AJBoardKitchen
     update_status('Cabinet changes applied. Drilling, labels, worktop and nesting rebuilt.')
   end
   def renest!(input={})
+    return Sync.renest(input) if defined?(Sync) && Sync.active?
     active!
     conf=settings(@config.merge(input.transform_keys(&:to_sym).slice(:sheet_w,:sheet_h,:kerf,:margin)))
     candidate=@job.merge(settings:conf)

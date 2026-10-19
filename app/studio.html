@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LuxKTC · SketchUp studio</title>
+  <link rel="stylesheet" href="studio.css">
+  <script defer src="studio.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">LK</span><span>LuxKTC<small>SKETCHUP STUDIO</small></span></div>
+    <div class="status-strip"><span class="badge" id="revision">No project</span><span class="badge" id="draft-status">Ready</span><button class="text-button" data-action="open_web">Open web interface ↗</button></div>
+  </header>
+  <div class="workspace">
+    <aside class="sidebar">
+      <div class="side-heading"><span>SHARED PROJECTS</span><button class="icon-button" data-action="new" aria-label="New project">+</button></div>
+      <button class="button secondary full" data-action="list">↻ Refresh list</button>
+      <div id="projects" class="projects"></div>
+      <div class="server"><span class="dot"></span><span id="server">Local project service</span></div>
+    </aside>
+    <main>
+      <div class="page-heading"><div><div class="eyebrow">MEASURE · DESIGN · MAKE</div><h1 id="project-title">Your kitchen in SketchUp.</h1><p id="project-subtitle">A native workspace connected to the same web project.</p></div><div class="main-actions"><button class="button secondary" data-action="capture">Read model changes</button><button class="button secondary" data-action="pull">↓ Pull web changes</button><button class="button secondary" data-action="apply">Build model</button><button class="button" data-action="save">Save to web</button></div></div>
+      <div id="message" class="message" role="status" hidden></div>
+      <nav class="tabs" aria-label="Project editor"><button class="tab active" data-action="tab" data-tab="projects">01 <span>Project</span></button><button class="tab" data-action="tab" data-tab="room">02 <span>Room</span></button><button class="tab" data-action="tab" data-tab="cabinets">03 <span>Cabinets</span></button><button class="tab" data-action="tab" data-tab="bom">04 <span>BOM & quote</span></button></nav>
+      <div id="content"></div>
+    </main>
+  </div>
+  <footer><span id="footer-state">Dimensions in mm · photos optional</span><span>Local Ruby geometry · shared project revisions</span></footer>
+  <dialog id="modal"><form id="modal-form" method="dialog"></form></dialog>
+</body>
+</html>

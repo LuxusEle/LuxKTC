@@ -22,3 +22,12 @@ __pycache__/
 *.p12
 *.pfx
 /resources/
+# Private local project database, wall photos, caches and browser checks.
+/web/data/
+/web/test-output/
+/web/.venv/
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+*.db-wal
+*.db-shm
